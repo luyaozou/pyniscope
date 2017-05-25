@@ -12,9 +12,17 @@ import ctypes.util
 import warnings
 from niScopeTypes import *
 from niScopeTypes import ViInt32
+import platform
 
+bit = platform.architecture()
+if bit == '32bit':
+    libname = 'niScope_32'
+elif bit == '64bit':
+    libname = 'niScope_64'
+else:
+    print('Cannot determine system architecture')
+    raise ImportError
 
-libname = 'niScope_32'
 #    include_niScope_h = os.environ['NIIVIPATH']+'Include\\niScope.h'
 lib = util.find_library(libname)
 if lib is None:
